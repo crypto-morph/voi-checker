@@ -22,6 +22,7 @@ if [[ ! $addr == "" ]]; then
   ./checks/check-balance.pl
   ./checks/check-resources.pl
   ./checks/check-partkey.pl
+  ./checks/check-consensus.pl
 else
   echo "need to set \$addr before this script will work - run export addr=<YOUR VOI PARTICIPATION ACCOUNT>"
 fi

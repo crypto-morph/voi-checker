@@ -4,7 +4,7 @@ local $/;
 
 $warningblocks = 5000;
 $testwarning = 0;
-$testerror = 1;
+$testerror = 0;
 
 print "Checking participation key... ";
 
