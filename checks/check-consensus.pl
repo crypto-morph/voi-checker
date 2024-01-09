@@ -2,7 +2,6 @@
 use Term::ANSIColor qw(:constants);
 
 print "Checking consensus... \n";
-print "    ---\n";
 $addr = $ENV{addr};
 
 open (CONSENSUS, "curl -s https://analytics.testnet.voi.nodly.io/v0/consensus/accounts/all|");
@@ -24,16 +23,16 @@ while ($consensus = <CONSENSUS>)
     $lastProposal = $9;
     $avgPctOnTime = $10;
 
-    print "    softVotes: $softVotes\n";
-    print "    softTokens: $softTokens\n";
-    print "    certVotes:  $certVotes\n";
-    print "    certTokens: $certTokens\n";
-    print "    q05Latency: $q05Latency\n";
-    print "    proposals: $proposals\n";
-    print "    lastSoftVote: $lastSoftVote\n";
-    print "    lastCertVote: $lastCertVote\n";
-    print "    lastProposal: $lastProposal\n";
-    print "    avgPctOnTime: $avgPctOnTime\n";
+    #print "    softVotes: $softVotes\n";
+    #print "    softTokens: $softTokens\n";
+    #print "    certVotes:  $certVotes\n";
+    #print "    certTokens: $certTokens\n";
+    #print "    q05Latency: $q05Latency\n";
+    #print "    proposals: $proposals\n";
+    #print "    lastSoftVote: $lastSoftVote\n";
+    #print "    lastCertVote: $lastCertVote\n";
+    #print "    lastProposal: $lastProposal\n";
+    #print "    avgPctOnTime: $avgPctOnTime\n";
   }
 }
 
@@ -45,5 +44,3 @@ else
 {
   print RED "    low average percentage on time - $avgPctOnTime\%\n"  . RESET;
 }
-
-print "    ---\n";
