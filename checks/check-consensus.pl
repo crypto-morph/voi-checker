@@ -38,9 +38,9 @@ while ($consensus = <CONSENSUS>)
 
 if ($avgPctOnTime > 80)
 { 
-  print GREEN "    OK - good average percentage on time - $avgPctOnTime\%\n" . RESET;
+  print GREEN "  OK - good average percentage on time - $avgPctOnTime\%\n" . RESET;
 } 
 else 
 {
-  print RED "    low average percentage on time - $avgPctOnTime\%\n"  . RESET;
+  print RED "  low average percentage on time - $avgPctOnTime\%\n"  . RESET;
 }

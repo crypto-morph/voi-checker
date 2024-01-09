@@ -7,9 +7,12 @@ def printERROR(mystring):
   print ('\033[91m ERROR - ' + mystring + '\033[0m')
 def printINFO(mystring):
   print ('\033[94m INFO - ' + mystring + '\033[0m')
+
 print ("Checking Logging...")
+
 f = open('/var/lib/algorand/logging.config')
 data = json.load(f)
+
 if data['Enable']:
   printOK("Logging enabled")
 else:
