@@ -3,7 +3,7 @@ import re
 import os
 from helper import *
 
-printHEADER("Checking consensus")
+printHEADER("Checking Consensus")
 addr = os.environ["addr"]
 
 goal = runCommand(["curl", "-s", "https://analytics.testnet.voi.nodly.io/v0/consensus/accounts/all"])

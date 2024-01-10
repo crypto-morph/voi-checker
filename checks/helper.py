@@ -1,5 +1,10 @@
 import subprocess
 
+def printTITLE(mystring):
+  print ('-------')
+  print ('\033[96m ' + mystring + '...\033[0m')
+  print ('-------')
+
 def printHEADER(mystring):
   print ('\033[95m ' + mystring + '...\033[0m')
 

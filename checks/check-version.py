@@ -7,3 +7,5 @@ printHEADER("Check Versions")
 goal = runCommand(['goal','version','-v'])
 x = re.search(r"Build:\s+(\S+)",goal)
 printINFO("goal version - " + x.group(1))
+
+if x.group(1) 
