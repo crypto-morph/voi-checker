@@ -19,12 +19,12 @@ if [[ ! $addr == "" ]]; then
   if goal node status | grep -q 'Sync Time: 0.0s'; then printf "${GREEN} IN SYNC ${NC}\n"; else printf "${RED} node is not in sync ${NC}\n"; fi
   echo -n "Checking if Node believes it is online..."
   if goal account dump -a $addr | grep -q '"onl": 1,'; then printf "${GREEN} ONLINE ${NC}\n"; else printf "${RED} You are offline ${NC}\n"; fi
-  ./checks/check-balance.pl
+  ./checks/check-balance.py
   ./checks/check-resources.py
   ./checks/check-partkey.py
   ./checks/check-logging.py
   ./checks/check-version.py
-  ./checks/check-consensus.pl
+  ./checks/check-consensus.py
 else
   echo "need to set \$addr before this script will work - run export addr=<YOUR VOI PARTICIPATION ACCOUNT>"
 fi
