@@ -20,8 +20,8 @@ if [[ ! $addr == "" ]]; then
   echo -n "Checking if Node believes it is online..."
   if goal account dump -a $addr | grep -q '"onl": 1,'; then printf "${GREEN} ONLINE ${NC}\n"; else printf "${RED} You are offline ${NC}\n"; fi
   ./checks/check-balance.pl
-  ./checks/check-resources.pl
-  ./checks/check-partkey.pl
+  ./checks/check-resources.py
+  ./checks/check-partkey.py
   ./checks/check-logging.py
   ./checks/check-version.py
   ./checks/check-consensus.pl
