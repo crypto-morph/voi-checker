@@ -36,7 +36,7 @@ else:
 mem_bytes = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')  # e.g. 4015976448
 mem_gib = mem_bytes/(1024.**3)
 
-printINFO("RAM present is " + str(mem_gib) + "Gb")
+printINFO("RAM present is " + str(round(mem_gib,2)) + "Gb")
 
 ramcmd = re.search(r"(\d+)",runCommand(['checks/check-mem.sh']))
 ram = int(ramcmd.group(1))
