@@ -3,7 +3,8 @@ import re
 import os
 from helper import *
 
-minimumVOI = 550
+lowVOI = 100 
+suggestedVOI = 550
 
 printHEADER("Checking Balance")
 
@@ -11,7 +12,9 @@ goal = runCommand(["goal", "account", "dump", "-a", os.environ["addr"]])
 goalcmd = re.search(r"\"algo\"\:\s+(\d+)",goal)
 balance = int(goalcmd.group(1))
 
-if (balance >= (minimumVOI * 1000000)):
-  printOK(str(balance / 1000000) + " voi is enough")
-else: 
-  printERROR(str(balance / 1000000) + " is NOT enough")
+if (balance >= (suggestedVOI * 1000000)):
+  printOK(str(round(balance / 1000000,2)) + " VOI is enough")
+elif (balance <= (lowVOI * 1000000)): 
+  printERROR(str(round(balance / 1000000,2)) + " VOI is a _lot_ less than optimal - add via the Discord faucet until you have more VOI until you have " + str(suggestedVOI))
+else:
+  printWARNING(str(round(balance / 1000000,2)) + " VOI is less than optimal (" + str(suggestedVOI) +" or more)")
