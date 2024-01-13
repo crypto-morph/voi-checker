@@ -10,3 +10,6 @@ else
   ./checks/check-version.py
   ./checks/check-consensus.py
 fi
+if [[ $1 == "bandwidth" ]]; then
+  ./checks/check-bandwidth.sh
+fi

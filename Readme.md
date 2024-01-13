@@ -17,6 +17,10 @@ These scripts should work on any node setup using D13s instructions - https://d1
 1) `cd voi-checker`
 2) `./check-status.sh`
 
+If you would like to add an optional Bandwidth test (using "speedtest cli") you can run like this:
+
+`.check-status.sh bandwidth`
+
 ## Example output
 
 ```
