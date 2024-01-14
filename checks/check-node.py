@@ -9,18 +9,20 @@ addr = os.environ["addr"]
 printINFO("VOI address is " + addr)
 
 # First check systemctl exists - if it doesn't we're probably not installed using D13s guide
-
 if (os.path.isfile('/usr/bin/systemctl')):
   printOK('systemctl detected (likely a D13 setup)')
 else:
   printWARNING('systemcl NOT detected - this checker only works with D13 setup (see Readme)')
 
 # Is the node running?
-checkactive = runCommand(["systemctl", "is-active", "voi"]).strip()
-if (checkactive == "active"):
-  printOK("VOI Node is started")
+if (os.path.isfile('/etc/supervisor/conf.d/supervisord.conf')):
+  printWARNING('supervisord available - could be in a container - so no checking systemctl')
 else:
-  printERROR("VOI Node is not started")
+  checkactive = runCommand(["systemctl", "is-active", "voi"]).strip()
+  if (checkactive == "active"):
+    printOK("VOI Node is started")
+  else:
+    printERROR("VOI Node is not started")
 
 # Is the node synced?
 goal = runCommand(['goal','node','status'])
