@@ -12,4 +12,4 @@ avgPctOnTime = float(goalcmd.group(10))
 if (avgPctOnTime > 80):
   printOK("good average percentage on time - " + str(avgPctOnTime) + "%")
 else: 
-  printERROR("low average percentage on time - " + str(avgPctOnTime) + "%")
+  printWARNING("low average percentage on time - " + str(avgPctOnTime) + "%")
