@@ -50,9 +50,9 @@ else:
 hddcmd = re.search(r"(\d+)",runCommand(['checks/check-hdd.sh']))
 hdd = int(hddcmd.group(1))
 if (hdd < highhd):
-  printOK("HDD - " + str(hdd) + "%")
+  printOK("Storage - " + str(hdd) + "%")
 else:
-  printERROR("HDD is high - " + str(hdd) + "%")
+  printERROR("Storage usage is high - " + str(hdd) + "%")
 
 #$hd = `checks/check-hdd.sh`;
 #chomp($hd);
