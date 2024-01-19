@@ -2,11 +2,12 @@
 import os
 import re
 import multiprocessing
+import psutil
 from helper import *
-
+ 
 highcpu = 80;
 highram = 80;
-highhd = 95;
+highdisk = 95;
 
 printHEADER("Check Resources")
 
@@ -18,51 +19,41 @@ with open('/proc/uptime', 'r') as f:
 
 printINFO("uptime is " + str(uptime_days) + " days")
 
-
-
 # CPU stats gathering 
 
-printINFO("CPU Count is " + str(multiprocessing.cpu_count()))
+load1, load5, load15 = psutil.getloadavg()
+cpu_usage = (load15/os.cpu_count()) * 100
+cpu_count = psutil.cpu_count(logical=False)
+logical_cpu_count =  psutil.cpu_count(logical=True)
 
-cpucmd = re.search(r"(\d+)",runCommand(['checks/check-cpu.sh']))
-cpu = int(cpucmd.group(1))
-if (cpu < highcpu):
-  printOK("CPU usage is currently - " + str(cpu) + "%")
+printINFO("The CPU usage is : " + str(round(cpu_usage,2)))
+printINFO("Logical CPU Count is " + str(logical_cpu_count))
+printINFO("Actual CPU Count is " + str(cpu_count))
+if (cpu_usage < highcpu):
+  printOK("CPU usage is currently " + str(round(cpu_usage,2)) + "%")
 else:
-  printERROR("CPU is high - " + str(cpu) + "%")
+  printERROR("CPU is high at " + str(cpu_usage) + "%")
 
 # RAM stats gathering
 
-mem_bytes = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')  # e.g. 4015976448
-mem_gib = mem_bytes/(1024.**3)
-
+mem_gib = psutil.virtual_memory().total /(1024.**3)
 printINFO("RAM present is " + str(round(mem_gib,2)) + "Gb")
 
-ramcmd = re.search(r"(\d+)",runCommand(['checks/check-mem.sh']))
-ram = int(ramcmd.group(1))
-if (ram < highram):
-  printOK("RAM usage is currently " + str(ram) + "%")
+used_ram = psutil.virtual_memory().used /(1024.**3)
+printINFO("Used RAM present is " + str(round(used_ram,2)) + "Gb")
+
+if (used_ram < highram):
+  printOK("RAM usage is currently " + str(used_ram) + "%")
 else:
-  printERROR("RAM is high - " + str(ram) + "%")
+  printERROR("RAM is high " + str(used_ram) + "%")
 
 # HDD stats gathering
 
-hddcmd = re.search(r"(\d+)",runCommand(['checks/check-hdd.sh']))
-hdd = int(hddcmd.group(1))
-if (hdd < highhd):
-  printOK("Storage - " + str(hdd) + "%")
-else:
-  printERROR("Storage usage is high - " + str(hdd) + "%")
+available_disk = psutil.disk_usage('/').total /(1024.**3)
+percentage_used_disk = psutil.disk_usage('/').percent 
 
-#$hd = `checks/check-hdd.sh`;
-#chomp($hd);
-#chop($hd); # remove %
-#if ($hd < $highhd)
-#{
-#  print GREEN "OK ($hd\%)\n" . RESET;
-#}
-#else
-#{
-#  print RED "HD usage is high ($hd\%)\n" . RESET;
-#}	
-#
+printINFO('available space on / storage - ' + str(100 - percentage_used_disk) + "%")
+if (percentage_used_disk < highdisk):
+  printOK("Root storage is " + str(round(percentage_used_disk,2)) + "%")
+else:
+  printERROR("Root storage used is high " + str(round(percentage_used_disk,2)) + "%")

@@ -11,6 +11,10 @@ These scripts should work on any node setup using D13s instructions - https://d1
    `export addr=<VOI WALLET ADDRESS>`
 2) Clone the repo to your node:
    `git clone git@github.com:crypto-morph/voi-checker.git`
+3) Ensure you have pip installed:
+   `sudo apt install pip`
+4) Ensure you have `psutil` and `speedtest-cli` installed:
+   `pip install psutil speedtest-cli`
 
 ## Usage
 

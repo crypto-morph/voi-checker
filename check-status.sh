@@ -2,6 +2,7 @@
 if [[ $addr == "" ]]; then
   echo "need to set \$addr before this script will work - run export addr=<YOUR VOI PARTICIPATION ACCOUNT>"
 else
+  ./checks/check-pre-check.py
   ./checks/check-node.py
   ./checks/check-balance.py
   ./checks/check-resources.py
@@ -11,5 +12,5 @@ else
   ./checks/check-consensus.py
 fi
 if [[ $1 == "bandwidth" ]]; then
-  ./checks/check-bandwidth.sh
+  ~/.local/bin/speedtest-cli
 fi
