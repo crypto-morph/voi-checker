@@ -16,6 +16,6 @@ installed = {pkg.key for pkg in pkg_resources.working_set}
 missing = required - installed
 
 if missing:
-  printERROR(missing + ' is missing - run `pip install psutils` - see README for details')
+  printERROR(" ".join(missing) + ' is missing - run `pip install ' + " ".join(missing) + "` - see README for details")
 else:
   printINFO(" ".join(required) + ' are all installed')
