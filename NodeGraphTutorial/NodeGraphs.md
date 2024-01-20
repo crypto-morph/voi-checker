@@ -15,7 +15,7 @@ Before we start - things to note:
   - If it's Ubuntu based (ideally using https://d13.co/posts/set-up-voi-participation-node) then use the voi-checker https://github.com/crypto-morph/voi-checker to work out why. 
   - If the node is build via another method - or if the checker isn't helping - raise a request on #node-help in Discord. 
 
-The Graphs:
+# The Graphs:
 
 ## My node is working fine
 
@@ -29,7 +29,7 @@ We're looking at:
 * Network score is 0.944 (also close to maximum of 1)
 * "Min" score is good too - the worst this node operated was better than the reward level
 
-## Something's wrong 1) - My node is not keeping up
+## 1) Something's wrong - My node is not keeping up
 
 ![Node Spec Too Low](/NodeGraphTutorial/nodespectoolow.png)
 
@@ -40,7 +40,7 @@ This graph shows a node that is not keeping up:
 * Likely the machine is not keeping up with blockchain
 * Check node is at least the minimum spec?
 
-## Something's wrong 2) - Network contention
+## 2) Something's wrong - Network contention
 
 ![Network Contention?](/NodeGraphTutorial/networkcontention.png)
 
@@ -48,7 +48,7 @@ This graph shows a node that is not keeping up:
 * Looking at the graph - it looks like traffic is being shaped
 * Check with your connection provider - are they throttling traffic?
 
-## Something's wrong 3) - Machine rebooting?
+## 3) Something's wrong - Machine rebooting?
 
 ![Machine Rebooting?](/NodeGraphTutorial/goodsetup-machinerebootsoccasionally.png)
 
@@ -56,7 +56,7 @@ This graph shows a node that is not keeping up:
 * In this case - the machine was running Windows and Windows Update was rebooting it over the week. 
 * It can also be caused by a machine overheating
 
-## Something's wrong 4) - Voting Issues
+## 4) Something's wrong - Voting Issues
 
 ![Voting Issues?](/NodeGraphTutorial/goodnetwork-badvote.png)
 
