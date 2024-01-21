@@ -14,3 +14,6 @@ fi
 if [[ $1 == "bandwidth" ]]; then
   ~/.local/bin/speedtest-cli
 fi
+if [[ $1 == "latency" ]]; then
+  ./checks/check-voi-relay.py
+fi
