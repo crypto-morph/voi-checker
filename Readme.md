@@ -13,8 +13,8 @@ These scripts should work on any node setup using D13s instructions - https://d1
    `git clone https://github.com/crypto-morph/voi-checker.git`
 3) Ensure you have pip installed:
    `sudo apt install pip`
-4) Ensure you have `psutil` and `speedtest-cli` installed:
-   `pip install psutil speedtest-cli`
+4) Ensure you have the required modules installed:
+   `pip install -r requirements.txt`
 
 ## Usage
 

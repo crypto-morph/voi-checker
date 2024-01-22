@@ -11,7 +11,7 @@ if (status != 0):
 else:
   printINFO('goal command is present')
 
-required = {'psutil', 'speedtest-cli'}
+required = {'psutil', 'speedtest-cli', 'statistics', 'tcp_latency'}
 installed = {pkg.key for pkg in pkg_resources.working_set}
 missing = required - installed
 

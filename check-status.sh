@@ -17,3 +17,6 @@ fi
 if [[ $1 == "latency" ]]; then
   ./checks/check-voi-relay.py
 fi
+if [[ $1 == "tcplatency" ]]; then
+  ./checks/check-voi-relay-tcp.py
+fi
