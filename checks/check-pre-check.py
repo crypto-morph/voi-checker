@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 import subprocess
 import pkg_resources
+import dns.resolver
+import re
+from statistics import mean
+from tcp_latency import measure_latency
 from helper import *
 
 printHEADER("Pre-Flight-Checks")
@@ -11,7 +15,7 @@ if (status != 0):
 else:
   printINFO('goal command is present')
 
-required = {'psutil', 'speedtest-cli', 'statistics', 'tcp_latency'}
+required = {'psutil', 'speedtest-cli', 'statistics', 'tcp-latency'}
 installed = {pkg.key for pkg in pkg_resources.working_set}
 missing = required - installed
 

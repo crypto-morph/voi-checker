@@ -23,7 +23,11 @@ These scripts should work on any node setup using D13s instructions - https://d1
 
 If you would like to add an optional Bandwidth test (using "speedtest cli") you can run like this:
 
-`.check-status.sh bandwidth`
+`./check-status.sh bandwidth`
+
+There is also an experimental latency check mode - this connects to all the active Relays one at a time and measures the time it takes by region. 
+
+`./check-status.sh tcplatency`
 
 ## Example output
 
