@@ -10,12 +10,20 @@ debug = False
 printHEADER("Checking Participation Key")
 
 # Goal participation key stats gathering 
+lastround = 0
+lastvote = 0 
+
 goal = runCommand(['goal','account','partkeyinfo'])
 goalcmd = re.search(r"Effective last round:\s+(\d+)",goal)
-lastround = int(goalcmd.group(1))
-
+if goalcmd is not None: 
+  lastround = int(goalcmd.group(1))
+else:
+  printERROR("Node not reporting Effective last round")
 goalcmd = re.search(r"Last vote round:\s+(\d+)",goal)
-lastvote = int(goalcmd.group(1))
+if goalcmd is not None:
+   lastvote = int(goalcmd.group(1))
+else:
+   printERROR("Node not reporting Last vote round")
 
 diff = lastround - lastvote
 
