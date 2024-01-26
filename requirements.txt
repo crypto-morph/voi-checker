@@ -3,3 +3,4 @@ psutil
 speedtest-cli
 statistics
 tcp_latency
+dnspython
