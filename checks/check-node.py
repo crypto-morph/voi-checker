@@ -20,9 +20,9 @@ if (os.path.isfile('/etc/supervisor/conf.d/supervisord.conf')):
 else:
   checkactive = runCommand(["systemctl", "is-active", "voi"]).strip()
   if (checkactive == "active"):
-    printOK("VOI Node is started")
+    printOK("VOI Systemctl Node is started")
   else:
-    printERROR("VOI Node is not started")
+    printERROR("VOI Systemctl Node is not started - this is okay if you are running Voi Swarm")
 
 # Is the node synced?
 goal = runCommand(['goal','node','status'])

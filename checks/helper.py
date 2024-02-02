@@ -21,4 +21,9 @@ def printINFO(mystring):
   print ('\033[94m   INFO - ' + mystring + '\033[0m')
 
 def runCommand(command):
-  return subprocess.check_output(command).decode('utf-8')
+  result = ""
+  try:
+    result = subprocess.check_output(command).decode('utf-8')
+  except subprocess.CalledProcessError as e:
+    printINFO("Command returned error code: " + str(e.returncode))
+  return result
