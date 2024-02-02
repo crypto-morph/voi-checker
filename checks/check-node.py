@@ -2,13 +2,23 @@
 import re
 import os
 from helper import *
+from pathlib import Path
 
 printTITLE("VOI Participation Node Checker")
 printHEADER("Checking Node")
 addr = os.environ["addr"]
 printINFO("VOI address is " + addr)
 
-# First check systemctl exists - if it doesn't we're probably not installed using D13s guide
+# First, check we are running VOI Swarm
+swarmEnabled = False
+
+if (os.path.isfile(str(Path.home()) + '/voi/bin/get-node-status')):
+  printINFO('VOI Swarm detected')
+  swarmEnabled = True
+else:
+  printINFO('VOI Swarm NOT detected')
+
+# Second, check systemctl exists - if it doesn't we're probably not installed using D13s guide
 if (os.path.isfile('/usr/bin/systemctl')):
   printOK('systemctl detected (likely a D13 setup)')
 else:
@@ -21,9 +31,10 @@ else:
   checkactive = runCommand(["systemctl", "is-active", "voi"]).strip()
   if (checkactive == "active"):
     printOK("VOI Systemctl Node is started")
+  elif (swarmEnabled):
+    printOK("VOI Systemctl Node is not started - but Swarm VOI detected")
   else:
-    printERROR("VOI Systemctl Node is not started - this is okay if you are running Voi Swarm")
-
+    printERROR("VOI Systemctl Node isn't started and Swarm VOI NOT detected")
 # Is the node synced?
 goal = runCommand(['goal','node','status'])
 goalcmd = re.search(r"Sync Time:\s+(\d+\.\d+)s",goal)
