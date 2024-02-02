@@ -1,4 +1,7 @@
 import subprocess
+import re
+import os
+from pathlib import Path
 
 def printTITLE(mystring):
   print ('-------')
@@ -27,3 +30,12 @@ def runCommand(command):
   except subprocess.CalledProcessError as e:
     printINFO("Command returned error code: " + str(e.returncode))
   return result
+
+def swarmEnabled():
+  swarmEnabled = False
+  if (os.path.isfile(str(Path.home()) + '/voi/bin/get-node-status')):
+    printINFO('VOI Swarm detected')
+    swarmEnabled = True
+  else:
+    printINFO('VOI Swarm NOT detected')
+  return swarmEnabled

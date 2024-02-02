@@ -10,13 +10,7 @@ addr = os.environ["addr"]
 printINFO("VOI address is " + addr)
 
 # First, check we are running VOI Swarm
-swarmEnabled = False
-
-if (os.path.isfile(str(Path.home()) + '/voi/bin/get-node-status')):
-  printINFO('VOI Swarm detected')
-  swarmEnabled = True
-else:
-  printINFO('VOI Swarm NOT detected')
+swarmEnabled = swarmEnabled()
 
 # Second, check systemctl exists - if it doesn't we're probably not installed using D13s guide
 if (os.path.isfile('/usr/bin/systemctl')):
@@ -35,6 +29,7 @@ else:
     printOK("VOI Systemctl Node is not started - but Swarm VOI detected")
   else:
     printERROR("VOI Systemctl Node isn't started and Swarm VOI NOT detected")
+
 # Is the node synced?
 goal = runCommand(['goal','node','status'])
 goalcmd = re.search(r"Sync Time:\s+(\d+\.\d+)s",goal)
