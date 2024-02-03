@@ -12,7 +12,7 @@ goalcmd = re.search(r"\s+\[\"" + addr + "\"\,\s+\"(\d+)\"\,\s+\"(\d+)\"\,\s+\"(\
 if goalcmd is not None: 
   avgPctOnTime = float(goalcmd.group(10))
 else:
-  printERROR('Checker failed to get consensus output from analytics.testnet.voi.nodly.io')
+  printERROR('Checker failed to get find consensus output from analytics.testnet.voi.nodly.io - could take a while to turn up if you have just started the node')
 if (avgPctOnTime > 80):
   printOK("good average percentage on time - " + str(avgPctOnTime) + "%")
 else: 
