@@ -13,27 +13,24 @@ printHEADER("Checking Participation Key")
 lastround = 0
 lastvote = 0 
 
+goal = runCommand(['goal','node','lastround'])
+thisround = int(goal)
+if (thisround < 1):
+  printERROR("Node not reporting last round")
+
 goal = runCommand(['goal','account','partkeyinfo'])
 goalcmd = re.search(r"Effective last round:\s+(\d+)",goal)
-if goalcmd is not None: 
-  lastround = int(goalcmd.group(1))
-else:
-  printERROR("Node not reporting Effective last round")
-goalcmd = re.search(r"Last vote round:\s+(\d+)",goal)
 if goalcmd is not None:
-   lastvote = int(goalcmd.group(1))
+   mylastround = int(goalcmd.group(1))
 else:
-   printERROR("Node not reporting Last vote round")
+   printERROR("Node not reporting Effective Last round")
 
-diff = lastround - lastvote
+diff = mylastround - thisround
 
 if (testwarning):
   diff = warningblocks - 1
 if (testerror):
   diff = -10
-
-if (debug):
-  print ("lastround = " + str(lastround) + ", lastvote = " + str(lastvote) + ", diff = " + str(diff) + ", warningblocks = " + str(warningblocks))
 
 if (diff > warningblocks):
   printOK(str(diff) + " blocks until your key stops working")
