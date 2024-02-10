@@ -10,8 +10,7 @@ debug = False
 printHEADER("Checking Participation Key")
 
 # Goal participation key stats gathering 
-lastround = 0
-lastvote = 0 
+mylastround = 0
 
 goal = runCommand(['goal','node','lastround'])
 thisround = int(goal)
@@ -20,6 +19,7 @@ if (thisround < 1):
 
 goal = runCommand(['goal','account','partkeyinfo'])
 goalcmd = re.search(r"Effective last round:\s+(\d+)",goal)
+mylastround = 0
 if goalcmd is not None:
    mylastround = int(goalcmd.group(1))
 else:
