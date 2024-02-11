@@ -5,6 +5,8 @@ by Morph42
 A collection of scripts for quickly finding the status of your VOI node.
 These scripts should work on any node setup using D13s instructions - https://d13.co/posts/set-up-voi-participation-node/.
 
+Note: The scripts D13 uses for going online, offline, rekeying are available in the /D13 directory for convinience
+
 ## Prerequisites
 
 1) Check you have set your VOI wallet address in your environment:
