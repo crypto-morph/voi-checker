@@ -19,15 +19,15 @@ These scripts should work on any node setup using D13s instructions - https://d1
 ## Usage
 
 1) `cd voi-checker`
-2) `./check-status.sh`
+2) `./check-status.py`
 
 If you would like to add an optional Bandwidth test (using "speedtest cli") you can run like this:
 
-`./check-status.sh bandwidth`
+`./check-status.py --speedtest=true`
 
 There is also an experimental latency check mode - this connects to all the active Relays one at a time and measures the time it takes by region. 
 
-`./check-status.sh tcplatency`
+`./check-status.py --latency=true`
 
 ## Example output
 
