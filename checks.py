@@ -21,7 +21,9 @@ def preFlightChecks():
      
   status, result = subprocess.getstatusoutput("goal")
   if (status != 0):
-    printERROR('goal not found - check algorand package is installed')
+    printERROR('goal not found - check algorand package is installed and path is set')
+    printERROR("won't go any further until that's available")
+    exit()
   else:
     printINFO('goal command is present')
   
