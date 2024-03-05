@@ -168,10 +168,10 @@ def checkPartKey():
     printERROR("Node not reporting last round")
   
   goal = runCommand(['goal','account','partkeyinfo'])
-  goalcmd = re.search(r"Effective last round:\s+(\d+)",goal)
+  goalcmd = re.findall(r"Effective last round:\s+(\d+)",goal)
   mylastround = 0
   if goalcmd is not None:
-     mylastround = int(goalcmd.group(1))
+     mylastround = int(max(goalcmd))
   else:
      printERROR("Node not reporting Effective Last round")
   
