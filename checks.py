@@ -248,7 +248,10 @@ def checkVersion():
   
   printHEADER("Check Versions")
   
-  goal = runCommand(['goal','-v'])
+  if (isSwarmEnabled):
+    goal = runCommand([swarmGoalCommand,'-v'])
+  else:
+    goal = runCommand(['goal','-v'])
   x = re.search(r"(\d+\.\d+\.\d+).stable",goal)
   version = x.group(1)
   
