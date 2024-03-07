@@ -12,20 +12,25 @@ from statistics import mean
 import subprocess
 from tcp_latency import measure_latency
 
+swarmGoalCommand = "/root/voi/bin/goal"
+isSwarmEnabled = swarmEnabled()
+
 def preFlightChecks():
   printHEADER("Pre-Flight-Checks")
   
   if (os.environ['addr'] == ""):
      printERROR("need to set \$addr before this script will work - run export addr=<YOUR VOI PARTICIPATION ACCOUNT>")
      exit()
-     
-  status, result = subprocess.getstatusoutput("goal")
-  if (status != 0):
-    printERROR('goal not found - check algorand package is installed and path is set')
-    printERROR("won't go any further until that's available")
-    exit()
+  if (isSwarmEnabled == False):
+    status, result = subprocess.getstatusoutput("goal")
+    if (status != 0):
+      printERROR('goal not found - check algorand package is installed and path is set')
+      printERROR("won't go any further until that's available")
+      exit()
+    else:
+      printINFO('goal command is present')
   else:
-    printINFO('goal command is present')
+    printINFO("Swarm detected - trusting Henrik's aliases")
   
   required = {'psutil', 'speedtest-cli', 'statistics', 'tcp-latency'}
   installed = {pkg.key for pkg in pkg_resources.working_set}
@@ -65,7 +70,10 @@ def checkNode():
       printERROR("VOI Systemctl Node isn't started and Swarm VOI NOT detected")
   
   # Is the node synced?
-  goal = runCommand(['goal','node','status'])
+  if (isSwarmEnabled):
+    goal = runCommand([swarmGoalCommand,'node','status'])
+  else: 
+    goal = runCommand(['goal','node','status'])
   goalcmd = re.search(r"Sync Time:\s+(\d+\.\d+)s",goal)
   if (float(goalcmd.group(1)) == 0.0):
     printOK("Node is in sync")
@@ -73,7 +81,10 @@ def checkNode():
     printERROR("Node is out of sync - sync has been running for " + str(goalcmd.group(1)))
   
   # Is the node online?
-  goal = runCommand(['goal','account','dump', '-a', addr ])
+  if (isSwarmEnabled):
+    goal = runCommand([swarmGoalCommand,'account','dump', '-a', addr ])
+  else: 
+    goal = runCommand(['goal','account','dump', '-a', addr ])
   goalcmd = re.search(r"\"onl\":\s+(\d+),",goal)
   if (int(goalcmd.group(1)) == 1):
     printOK("Node is in online")
@@ -86,7 +97,11 @@ def checkBalance():
   
   printHEADER("Checking Balance")
   
-  goal = runCommand(["goal", "account", "dump", "-a", os.environ["addr"]])
+  if (isSwarmEnabled):
+    goal = runCommand([swarmGoalCommand, "account", "dump", "-a", os.environ["addr"]])
+  else:
+    goal = runCommand(["goal", "account", "dump", "-a", os.environ["addr"]])
+  
   goalcmd = re.search(r"\"algo\"\:\s+(\d+)",goal)
   balance = int(goalcmd.group(1))
   
@@ -162,12 +177,19 @@ def checkPartKey():
   # Goal participation key stats gathering 
   mylastround = 0
   
-  goal = runCommand(['goal','node','lastround'])
+  if (isSwarmEnabled):
+    goal = runCommand([swarmGoalCommand,'node','lastround'])
+  else:
+    goal = runCommand(['goal','node','lastround'])
   thisround = int(goal)
   if (thisround < 1):
     printERROR("Node not reporting last round")
   
-  goal = runCommand(['goal','account','partkeyinfo'])
+  if (isSwarmEnabled):
+    goal = runCommand([swarmGoalCommand,'account','partkeyinfo'])
+  else:
+    goal = runCommand(['goal','account','partkeyinfo'])
+
   goalcmd = re.findall(r"Effective last round:\s+(\d+)",goal)
   mylastround = 0
   if goalcmd is not None:
@@ -195,7 +217,7 @@ def checkLogging():
   
   data = {}
   
-  if (swarmEnabled()):
+  if (isSwarmEnabled):
     location = '/var/lib/voi/algod/data/logging.config'
   else:
     location = '/var/lib/algorand/logging.config'
@@ -235,7 +257,10 @@ def checkVersion():
   if (versiontuple(version) < versiontuple("3.21.0")):
     printERROR("This version " + version + " is less than 3.21.0 - some scripts may not run")
   
-  goal = runCommand(['goal','-v'])
+  if (isSwarmEnabled):
+    goal = runCommand([swarmGoalCommand,'-v'])
+  else:
+    goal = runCommand(['goal','-v'])
   x = re.search(r"(\d+\.\d+\.\d+).stable",goal)
   serverversion = x.group(1)
   
