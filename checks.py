@@ -312,10 +312,9 @@ def checkLatencyTCP():
       answers = resolver.resolve("_algobootstrap._tcp.voitest.voi.network", "SRV")
   except dns.resolver.NoAnswer:
       printERROR('Failed to lookup relay names')
-  
   for rdata in answers:
     myhost = str(rdata.target).strip(".")
-    myregion, mynumber = re.findall("r\-([a-zA-Z]+)\-(\d+)", myhost)[0]
+    myregion, mynumber = re.findall("r\-([a-zA-Z]+)\-(\S+).testnet\.", myhost)[0]
     try:
       data = resolver.resolve(str(rdata.target), "A")
     except dns.resolver.NoAnswer:
@@ -333,7 +332,7 @@ def checkLatencyTCP():
     else:
       errorscount += 1
   
-  # print out results
+    # print out results
       
   printHEADER("Results...")
   
