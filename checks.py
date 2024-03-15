@@ -12,7 +12,7 @@ from statistics import mean
 import subprocess
 from tcp_latency import measure_latency
 
-swarmGoalCommand = "/root/voi/bin/goal"
+swarmGoalCommand = str(Path.home()) + "/voi/bin/goal"
 isSwarmEnabled = swarmEnabled()
 
 def preFlightChecks():
@@ -46,10 +46,6 @@ def checkNode():
   printHEADER("Checking Node")
   addr = os.environ["addr"]
   printINFO("VOI address is " + addr)
-  
-  # First, check we are running VOI Swarm
-  isSwarmEnabled = False
-  isSwarmEnabled = swarmEnabled()
   
   # Second, check systemctl exists - if it doesn't we're probably not installed using D13s guide
   if (os.path.isfile('/usr/bin/systemctl')):
