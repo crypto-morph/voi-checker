@@ -174,7 +174,7 @@ def checkPartKey():
   mylastround = 0
   
   if (isSwarmEnabled):
-    goal = runCommand([swarmGoalCommand,'node','lastround'])
+    goal = runCommand([swarmGoalCommand,'node','lastround']).strip().split("\n")[-1]
   else:
     goal = runCommand(['goal','node','lastround'])
   thisround = int(goal)
