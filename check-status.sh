@@ -1,1 +1,1 @@
-python ./check-status.py "$@"
+python3 ./check-status.py "$@"
