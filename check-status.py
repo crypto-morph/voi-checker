@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 from helper import *
 from checks import *
 import argparse

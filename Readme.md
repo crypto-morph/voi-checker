@@ -18,10 +18,22 @@ Note: The scripts D13 uses for going online, offline, rekeying are available in 
 4) Ensure you have the required modules installed:
    `pip install -r requirements.txt`
 
+## New versions of Ubuntu / Debian?  Read here!
+
+If you get an error about `venv` you will need to follow these extra steps:
+
+`sudo apt install python3.11-venv`
+`python3 -m venv $HOME/.venv`
+`export PATH="$HOME/.venv/bin:$PATH"`
+
+(you can put the last `export` line into your `.bashrc` file if you are going to use the checker regularly - otherwise you'll need to type it in each time)
+
+Then proceed to step 4) in the instructions above. 
+
 ## Usage
 
 1) `cd voi-checker`
-2) `./check-status.py`
+2) `check-status.sh`
 
 If you would like to add an optional Bandwidth test (using "speedtest cli") you can run like this:
 

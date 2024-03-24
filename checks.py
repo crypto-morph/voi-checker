@@ -17,8 +17,8 @@ isSwarmEnabled = swarmEnabled()
 
 def preFlightChecks():
   printHEADER("Pre-Flight-Checks")
-  
-  if (os.environ['addr'] == ""):
+  addr = str(os.getenv('addr'))
+  if (addr == ""):
      printERROR("need to set \$addr before this script will work - run export addr=<YOUR VOI PARTICIPATION ACCOUNT>")
      exit()
   if (isSwarmEnabled == False):
@@ -44,7 +44,7 @@ def preFlightChecks():
 def checkNode():
   printTITLE("VOI Participation Node Checker")
   printHEADER("Checking Node")
-  addr = os.environ["addr"]
+  addr = str(os.getenv("addr"))
   printINFO("VOI address is " + addr)
   
   # Second, check systemctl exists - if it doesn't we're probably not installed using D13s guide
